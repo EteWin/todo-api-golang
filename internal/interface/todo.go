@@ -39,6 +39,7 @@ func (h *TodoHandler) ReadAllTodos(c *gin.Context) {
 }
 
 func (h *TodoHandler) UpdateTodo(c *gin.Context) {
+	id := c.Param("id")
 	var req struct {
 		Title     string `json:"title"`
 		Completed bool   `json:"completed"`
@@ -47,22 +48,16 @@ func (h *TodoHandler) UpdateTodo(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
-	if err := h.usecase.Update(req.Title, req.Completed); err != nil {
+	if err := h.usecase.Update(id, req.Title, req.Completed); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 	}
 
-	c.JSON(http.StatusOK, gin.H{"message": "todo updated"})
+	c.Status(http.StatusOK)
 }
 
 func (h *TodoHandler) DeleteTodo(c *gin.Context) {
-	var req struct {
-		ID string `json:"id"`
-	}
-	if err := c.ShouldBindJSON(&req); err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-		return
-	}
-	if err := h.usecase.Delete(req.ID); err != nil {
+	id := c.Param("id")
+	if err := h.usecase.Delete(id); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 	}
 

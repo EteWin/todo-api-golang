@@ -35,3 +35,12 @@ func (t *Todo) Validate() error {
 	}
 	return nil
 }
+
+func (t *Todo) UpdateTitle(title string) error {
+	if err := t.Validate(); err != nil {
+		return err
+	}
+	t.Title = title
+	t.UpdatedAt = time.Now()
+	return nil
+}

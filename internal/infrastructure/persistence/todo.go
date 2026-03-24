@@ -23,10 +23,18 @@ func (r *TodoRepositoryImpl) ReadAll() ([]domain.Todo, error) {
 	return todos, r.db.Find(&todos).Error
 }
 
+func (r *TodoRepositoryImpl) FindByID(id string) (*domain.Todo, error) {
+	var todo domain.Todo
+	if err := r.db.First(&todo, "id = ?", id).Error; err != nil {
+		return nil, err
+	}
+	return &todo, nil
+}
+
 func (r *TodoRepositoryImpl) Update(todo *domain.Todo) error {
 	return r.db.Save(todo).Error
 }
 
 func (r *TodoRepositoryImpl) Delete(todo *domain.Todo) error {
-	return r.db.Delete(todo).Error
+	return r.db.Delete(&domain.Todo{}, "id = ?", todo.ID).Error
 }

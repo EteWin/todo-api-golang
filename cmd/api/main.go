@@ -25,7 +25,7 @@ func main() {
 	})
 	root.POST("/todo", handler.CreateTodo)
 	root.GET("/todo", handler.ReadAllTodos)
-	root.PUT("/todo", handler.UpdateTodo)
-	root.DELETE("/todo", handler.DeleteTodo)
+	root.PUT("/todo/:id", handler.UpdateTodo)
+	root.DELETE("/todo/:id", handler.DeleteTodo)
 	root.Run(":8080")
 }
