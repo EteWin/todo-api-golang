@@ -1,11 +1,12 @@
-FROM golang:1.26.0
+FROM golang:1.25
 
 WORKDIR /app
 
-COPY api/ ./api/
+RUN go install github.com/air-verse/air@latest
 
-WORKDIR /app/api
+COPY go.mod go.sum ./
+RUN go mod download
 
-RUN go mod tidy
+COPY . ./
 
-CMD ["go","run","main.go"]
+CMD ["air", "-c", ".air.toml"]
