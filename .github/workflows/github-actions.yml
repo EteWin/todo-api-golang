@@ -13,13 +13,6 @@ jobs:
         uses: actions/setup-go@v5
         with:
           go-version: "1.25"
-      - name: Cache Go modules
-        uses: actions/cache@v3
-        with:
-          path: |
-            ~/.cache/go-build
-            ~/go/pkg/mod
-          key: ${{ runner.os }}--go-${{ hashFiles('**/go.sum')}}
       - name: Install dependencies
         run: go mod tidy
       - name: Build
@@ -34,13 +27,6 @@ jobs:
         uses: actions/setup-go@v5
         with:
           go-version: "1.25"
-      - name: Cache Go modules
-        uses: actions/cache@v3
-        with:
-          path: |
-            ~/.cache/go-build
-            ~/go/pkg/mod
-          key: ${{ runner.os }}--go-${{ hashFiles('**/go.sum')}}
       - name: Test
         run: go test -cover ./...
   lint:
@@ -52,13 +38,6 @@ jobs:
         uses: actions/setup-go@v5
         with:
           go-version: "1.25"
-      - name: Cache Go modules
-        uses: actions/cache@v3
-        with:
-          path: |
-            ~/.cache/go-build
-            ~/go/pkg/mod
-          key: ${{ runner.os }}--go-${{ hashFiles('**/go.sum')}}
       - name: Lint
         run: go vet ./...
       - name: Format check
