@@ -37,11 +37,12 @@ func (t *Todo) Validate() error {
 }
 
 func (t *Todo) UpdateTodo(title string, completed bool) error {
-	if err := t.Validate(); err != nil {
-		return err
-	}
 	t.Title = title
 	t.Completed = completed
 	t.UpdatedAt = time.Now()
+
+	if err := t.Validate(); err != nil {
+		return err
+	}
 	return nil
 }
