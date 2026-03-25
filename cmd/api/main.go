@@ -27,5 +27,7 @@ func main() {
 	root.GET("/todo", handler.ReadAllTodos)
 	root.PUT("/todo/:id", handler.UpdateTodo)
 	root.DELETE("/todo/:id", handler.DeleteTodo)
-	root.Run(":8080")
+	if err := root.Run(":8080"); err != nil {
+		panic(err)
+	}
 }

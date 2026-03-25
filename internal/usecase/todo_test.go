@@ -19,7 +19,6 @@ type mockTodoRepository struct {
 	findError      error
 	calledDelete   bool
 	deleteError    error
-	// deleteID       string
 }
 
 func (m *mockTodoRepository) Create(todo *domain.Todo) error {
