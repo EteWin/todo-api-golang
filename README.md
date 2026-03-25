@@ -21,6 +21,7 @@
 ```
 ・
 ├── backend/
+│   ├── Dockerfile
 │   ├── cmd/
 │   │   └── main.go
 │   ├── internal/
@@ -28,12 +29,11 @@
 │   │   ├── usecase/         # ユースケース（処理の流れ）
 │   │   ├── interface/       # 外部との接点（HTTP）
 │   │   └── infrastructure/  # DBなどの実装
-│   │      └── persistence/  # Usecaseの保存係
+│          └── persistence/  # Usecaseの保存係
 │
-├── docker/
-│   ├── Dockerfile
-│   └── docker-compose.yml
-│
+├── docker-compose.yml
+├── .env
+├── .env.example
 └── README.md
 ```
 
