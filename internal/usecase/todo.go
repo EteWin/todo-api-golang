@@ -38,7 +38,7 @@ func (u *TodoUsecase) Update(id string, title string, completed bool) error {
 		return err
 	}
 
-	if err := todo.UpdateTitle(title); err != nil {
+	if err := todo.UpdateTodo(title, completed); err != nil {
 		return err
 	}
 	return u.repo.Update(todo)
