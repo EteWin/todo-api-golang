@@ -13,13 +13,56 @@ jobs:
         uses: actions/setup-go@v5
         with:
           go-version: "1.25"
+      - name: Cache Go modules
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/.cache/go-build
+            ~/.cache/go-mod
+          key: ${{ runner.os }}--go-${{ hashFiles('**/go.sum')}}
       - name: Install dependencies
         run: go mod tidy
       - name: Build
         run: go build ./...
+
+  test:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: "1.25"
       - name: Test
-        run: go test ./...
-      - name: Lint
-        run: go vet ./...
+        run: go test -cover ./...
+  lint:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: "1.25"
+      - name: Cache Go modules
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/.cache/go-build
+            ~/.cache/go-mod
+          key: ${{ runner.os }}--go-${{ hashFiles('**/go.sum')}}
+      - name: Cache Go modules
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/.cache/go-build
+            ~/.cache/go-mod
+          key: ${{ runner.os }}--go-${{ hashFiles('**/go.sum')}}
+      - name: Run golangci-lint
+        uses: golangci/golangci-lint-action@v6
+        with:
+          version: latest
+          args: --timeout 5m
       - name: Format check
         run: test -z "$(gofmt -l .)"
