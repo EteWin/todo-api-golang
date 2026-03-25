@@ -18,6 +18,7 @@
 
 ## ■ ディレクトリ構成
 
+```
 ・
 ├── backend/
 │   ├── cmd/
@@ -34,6 +35,7 @@
 │   └── docker-compose.yml
 │
 └── README.md
+```
 
 ## ■ アーキテクチャ
 
