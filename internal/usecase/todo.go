@@ -44,17 +44,6 @@ func (u *TodoUsecase) Update(id string, title string, completed bool) error {
 	return u.repo.Update(todo)
 }
 
-// func (u *TodoUsecase) Update(title string, completed bool) error {
-// 	todo := &domain.Todo{
-// 		Title:     title,
-// 		Completed: completed,
-// 	}
-// 	if err := todo.Validate(); err != nil {
-// 		return err
-// 	}
-// 	return u.repo.Update(todo)
-// }
-
 func (u *TodoUsecase) Delete(id string) error {
 	todo := &domain.Todo{
 		ID: id,
