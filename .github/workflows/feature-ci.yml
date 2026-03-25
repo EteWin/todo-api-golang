@@ -2,9 +2,9 @@ name: GitHub Actions Go CI
 run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
 on:
   push:
-    branches: [develop, main]
+    branches: [feature/**]
   pull_request:
-    branches: [develop, main]
+    branches: [feature/**]
 jobs:
   build:
     runs-on: ubuntu-latest
