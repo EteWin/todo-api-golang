@@ -4,9 +4,9 @@ WORKDIR /app
 
 RUN go install github.com/air-verse/air@latest
 
-COPY go.mod go.sum ./
+COPY ./backend/go.mod ./backend/go.sum ./
 RUN go mod download
 
-COPY . ./
+COPY ./backend/. ./
 
 CMD ["air", "-c", ".air.toml"]

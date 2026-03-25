@@ -21,6 +21,8 @@ func Init() *gorm.DB {
 		host, port, user, password, dbName,
 	)
 
+	log.Printf("dsn:%v ", dsn)
+
 	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
 	if err != nil {
 		log.Fatal("DB connection failed: ", err)

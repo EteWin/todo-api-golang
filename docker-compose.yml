@@ -2,7 +2,7 @@ services:
   api:
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: ./backend/Dockerfile
     image: api
     container_name: todo-api-golang
     ports:
@@ -18,7 +18,7 @@ services:
       POSTGRES_USER: ${DB_USER}
       POSTGRES_PASSWORD: ${DB_PASSWORD}
     volumes:
-      - .:/app
+      - ./backend:/app
   db:
     image: postgres:15
     container_name: todo-db
