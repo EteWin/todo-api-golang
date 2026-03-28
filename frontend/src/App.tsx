@@ -27,40 +27,18 @@ export default function App() {
     setText("");
   };
 
-  const handleEdit = (key: number, title: string) => {
-    setTodos((todos) => {
-      const newTodos = todos.map((todo) => {
+  const patchTodo = (
+    key: number,
+    patches: Partial<Pick<Todo, "title" | "completed" | "removed">>,
+  ) => {
+    setTodos((todos) =>
+      todos.map((todo) => {
         if (todo.key === key) {
-          return { ...todo, title: title };
+          return { ...todo, ...patches };
         }
         return todo;
-      });
-      return newTodos;
-    });
-  };
-
-  const handleChecked = (key: number, completed: boolean) => {
-    setTodos((todos) => {
-      const newTodos = todos.map((todo) => {
-        if (todo.key === key) {
-          return { ...todo, completed };
-        }
-        return todo;
-      });
-      return newTodos;
-    });
-  };
-
-  const handleRemove = (key: number, removed: boolean) => {
-    setTodos((todos) => {
-      const newTodos = todos.map((todo) => {
-        if (todo.key === key) {
-          return { ...todo, removed };
-        }
-        return todo;
-      });
-      return newTodos;
-    });
+      }),
+    );
   };
 
   return (
@@ -82,15 +60,19 @@ export default function App() {
                 type="checkbox"
                 checked={todo.completed}
                 disabled={todo.removed}
-                onChange={() => handleChecked(todo.key, !todo.completed)}
+                onChange={() =>
+                  patchTodo(todo.key, { completed: !todo.completed })
+                }
               ></input>
               <input
                 type="text"
                 disabled={todo.completed || todo.removed}
                 value={todo.title}
-                onChange={(e) => handleEdit(todo.key, e.target.value)}
+                onChange={(e) => patchTodo(todo.key, { title: e.target.value })}
               />
-              <button onClick={() => handleRemove(todo.key, !todo.removed)}>
+              <button
+                onClick={() => patchTodo(todo.key, { removed: !todo.removed })}
+              >
                 {todo.removed ? "復元" : "削除"}
               </button>
             </li>
