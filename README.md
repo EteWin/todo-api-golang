@@ -1,12 +1,9 @@
-# TODO API (Go + Clean Architecture)
+# TODO APP (Go + React)
 
 ## ■ 概要
 
-このリポジトリは、Go + GORM + Gin + Docker を用いた
+このリポジトリは、Go + GORM + Gin + Docker + React を用いた
 シンプルなTODO APIです。
-
-クリーンアーキテクチャに基づき、以下の構造で実装しています。
-（後にフロントエンド部分を実装予定です）
 
 ## ■ 使用技術
 
@@ -14,6 +11,7 @@
 - Gin
 - GORM
 - PostgreSQL
+- React
 - Docker / Docker Compose
 
 ## ■ ディレクトリ構成
@@ -24,12 +22,33 @@
 │   ├── Dockerfile
 │   ├── cmd/
 │   │   └── main.go
-│   ├── internal/
-│   │   ├── domain/          # ビジネスロジック
-│   │   ├── usecase/         # ユースケース（処理の流れ）
-│   │   ├── interface/       # 外部との接点（HTTP）
-│   │   └── infrastructure/  # DBなどの実装
-│          └── persistence/  # Usecaseの保存係
+│   └── internal/
+│       ├── domain/          # ビジネスロジック
+│       ├── usecase/         # ユースケース（処理の流れ）
+│       ├── interface/       # 外部との接点（HTTP）
+│       └── infrastructure/  # DBなどの実装
+│           └── persistence/  # Usecaseの保存係
+│
+├── frontend/
+│   ├── Dockerfile
+│   ├── src/
+│   │   ├── main.tsx                # エントリーポイント
+│   │   ├── App.tsx                 # Todoアプリのルートコンポーネント
+│   │   ├── index.css               # 全体CSS
+│   │   ├── components/             # 再利用コンポーネント
+│   │   │   ├── TodoItem.tsx        # (以降未完了)
+│   │   │   ├── TodoList.tsx        # (以降未完了)
+│   │   │   ├── MemoDetail.tsx      # (以降未完了)
+│   │   │   └── Switch.tsx          # (以降未完了)
+│   │   ├── types/                  # TypeScript 型定義 (以降未完了)
+│   │   │   └── todo.ts
+│   │   ├── services/               # API呼び出しや認証 (実装未完了)
+│   │   │   ├── api.ts
+│   │   │   └── auth.ts
+│   ├── package.json
+│   ├── tsconfig.json
+│   ├── vite.config.ts
+│   └── README.md
 │
 ├── docker-compose.yml
 ├── .env
@@ -37,7 +56,30 @@
 └── README.md
 ```
 
-## ■ アーキテクチャ
+## ■ 起動方法
+
+① リポジトリをクローン
+
+- git clone <repository_url>
+- cd <project_name>
+
+② Docker起動
+
+- backend
+  - docker compose build
+- frontend
+  - docker compose up
+
+③ ローカル接続
+
+- backend
+  - http://localhost:8080
+- frontend
+  - http://localhost:3000
+
+---
+
+## ■ アーキテクチャ (Backend)
 
 Domain ← Usecase ← Interface ← Infrastructure
 
@@ -55,22 +97,6 @@ Domain ← Usecase ← Interface ← Infrastructure
 - Infrastructure
 - DBや外部サービスの実装
 - GORMなどを使用
-
-## ■ 起動方法
-
-① リポジトリをクローン
-
-- git clone <repository_url>
-- cd <project_name>
-
-② Docker起動
-
-- docker compose build
-- docker compose up
-
-③ API確認
-
-- http://localhost:8080
 
 ## ■ 補足
 
